@@ -1,11 +1,17 @@
 // import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import java.util.Scanner; 
 // import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 public class Main {
   public static void main(String[] args) {
+    Scanner testo = new Scanner(System.in);  // Create a Scanner object
+    System.out.println("Enter username");
 
+    String userName = testo.nextLine();
+
+    System.out.println("The length of the string is: " + userName.length());
+    
     Example exa = new Example();
 
     ArrayList<Object> listaObjetos = new ArrayList<Object>();
@@ -15,6 +21,7 @@ public class Main {
       listaObjetos.add(2.64f);
       listaObjetos.add("Carlos");
       listaObjetos.add(exa);
+    
 
     System.out.println("Contenido del ArrayList:");
     for (Object objeto : listaObjetos) {
