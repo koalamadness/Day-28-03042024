@@ -14,6 +14,9 @@ public class Main {
     
     Example exa = new Example();
 
+    exa.addNums(5);
+    exa.goList();
+
     ArrayList<Object> listaObjetos = new ArrayList<Object>();
 
       listaObjetos.add(true);
