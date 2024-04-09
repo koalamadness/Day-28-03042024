@@ -2,7 +2,7 @@
 import java.util.Scanner; 
 // import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
-
+import java.util.Collections; 
 public class Main {
   public static void main(String[] args) {
     Scanner testo = new Scanner(System.in);  // Create a Scanner object
@@ -25,6 +25,7 @@ public class Main {
       listaObjetos.add("Carlos");
       listaObjetos.add(exa);
     
+    
 
     System.out.println("Contenido del ArrayList:");
     for (Object objeto : listaObjetos) {
@@ -40,6 +41,17 @@ public class Main {
         System.out.println("The object: " + objeto + " is an unidentified object");
       }
     }
+
+    long count = listaObjetos.stream().count();
+    System.out.println("Tamano de listaOjetos: " + count);
+
+    System.out.println("Get 2 listaOjetos: " + listaObjetos.get(1));
+    listaObjetos.set(0,false);
+    System.out.println("Get 1 listaOjetos: " + listaObjetos.get(0));
+
+    Object objremoved = listaObjetos.remove(0);
+    System.out.println("Objeto removido: " + objremoved);
+
   }
 
   // @Test
