@@ -6,6 +6,10 @@ import java.util.ArrayList;
 public class Main {
   public static void main(String[] args) {
 
+    Anagram testAnagram = new Anagram();
+
+    testAnagram.findAnagram();
+
     TestHashMap tester = new TestHashMap();
 
     tester.countNames();
