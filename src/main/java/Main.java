@@ -2,9 +2,14 @@
 import java.util.Scanner; 
 // import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
-import java.util.Collections; 
+
 public class Main {
   public static void main(String[] args) {
+
+    TestHashMap tester = new TestHashMap();
+
+    tester.countNames();
+    
     Scanner testo = new Scanner(System.in);  // Create a Scanner object
     System.out.println("Enter username");
 
