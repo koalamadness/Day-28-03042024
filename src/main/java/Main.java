@@ -6,6 +6,10 @@ import java.util.ArrayList;
 public class Main {
   public static void main(String[] args) {
 
+    FirstUniqueChar test2 = new FirstUniqueChar();
+
+    test2.findUniqChar();
+
     Anagram testAnagram = new Anagram();
 
     testAnagram.findAnagram();
