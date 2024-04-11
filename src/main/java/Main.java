@@ -6,6 +6,10 @@ import java.util.ArrayList;
 public class Main {
   public static void main(String[] args) {
 
+    RandomScanner game = new RandomScanner();
+
+    game.guessGame();
+
     FirstUniqueChar test2 = new FirstUniqueChar();
 
     test2.findUniqChar();
