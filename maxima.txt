@@ -1,0 +1,104 @@
+syms z; % Se define a z como una variable simbólica
+% Función f(z)
+func1 = z^2 + 5i*z + 3 - 1i;
+
+% Punto z0
+z0 = 6 - 1i;
+
+% Derivada de f'(z)
+dfunc1 = diff(func1, z);
+
+% Derivada en el punto z0
+valor_dfunc1 = subs(dfunc1, z, z0);
+
+% Mostramos el resultado
+disp(['La derivada f''(z) evaluada en z0 = ', num2str(z0), ' es:']);
+disp(valor_dfunc1);
+
+
+func2 = (z^2 + 2i*z) / (z - 1i);
+
+% Definimos el punto z0
+z0 = 4 + 2i;
+
+% Calculamos la derivada de f(z)
+df = diff(func2, z);
+
+% Evaluamos la derivada en el punto z0
+df_value = subs(df, z, z0);
+
+% Mostramos el resultado
+disp(['La derivada de f(z) evaluada en z0 = ', num2str(z0), ' es:']);
+disp(df_value);
+
+
+% Definimos la función f(z)
+f = sin(z^2 + 3i*z);
+
+% Definimos el punto z0
+z0 = 1i*pi;
+
+% Calculamos la derivada de f(z)
+df = diff(f, z);
+
+% Evaluamos la derivada en el punto z0
+df_value = subs(df, z, z0);
+
+% Mostramos el resultado
+disp(['La derivada de f(z) evaluada en z0 = ', num2str(z0), ' es:']);
+disp(df_value);
+
+
+
+% Definimos la función f(z)
+f = z^3 - 2*z^2 + 6i*z;
+
+% Calculamos la derivada de f(z)
+df = diff(f, z);
+
+% Mostramos la derivada
+disp('La derivada de f(z) es:');
+disp(df);
+
+% Definimos la función f(z)
+f = 5 / z^2;
+
+% Calculamos la derivada de f(z)
+df = diff(f, z);
+
+% Mostramos la derivada
+disp('La derivada de f(z) es:');
+disp(df);
+
+% Definimos la función f(z)
+f = (3*z - 4i) / (z + 1i);
+
+% Calculamos la derivada de f(z)
+df = diff(f, z);
+
+% Mostramos la derivada
+disp('La derivada de f(z) es:');
+disp(df);
+
+syms z; % Definimos z como una variable simbólica
+
+% Definimos la función a integrar
+f = abs(z);
+
+% Calculamos la integral indefinida de la función
+integral_f = int(f, z);
+
+% Mostramos la integral indefinida
+disp('La integral indefinida de |z| dz es:');
+disp(integral_f);
+
+
+% Definimos la función a integrar
+f = z^3;
+
+% Calculamos la integral indefinida de la función
+integral_f = int(f, z);
+
+% Mostramos la integral indefinida
+disp('La integral indefinida de z^3 dz es:');
+disp(integral_f);
