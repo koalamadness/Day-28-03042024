@@ -1,0 +1,5 @@
+% Definir la función f(x)
+function f = fun_exp(x)
+  f = (exp(x) + exp(-x)) / 2;
+end
+
