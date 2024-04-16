@@ -1,43 +1,177 @@
-% Definir la función f(x)
-function f = fun_exp(x)
-  f = (exp(x) + exp(-x)) / 2;
-end
 
-% Definir la variable simbólica x
-syms x;
+syms z; % Se define a z como una variable simbólica
 
-% Calcular la serie de McLaurin hasta el término n
-n = 5; % Número de términos
-serie_taylor = taylor(fun_exp(x),x,n);
+% Función 1. a) f(z)
+func1 = z^2 + 5i*z + 3 - 1i;
 
-% Mostrar la serie de McLaurin
-disp(serie_taylor);
+% Punto z0
+z0 = 6 - 1i;
 
-% Valor de x para evaluar la serie
-valor_x = 1;
+% Derivada de f'(z)
+dfunc1 = diff(func1, z);
+disp('La derivada de f(z) es');
+disp(dfunc1);
 
-% Sustituir x en la serie de McLaurin y evaluar
-resultado = subs(serie_taylor, x, valor_x);
+% Derivada en el punto z0
+valor_dfunc1 = subs(dfunc1, z, z0);
+
+% Resultado
+disp(['La derivada de f(z) evaluada en z0 = ', num2str(z0), ' es:']);
+disp(valor_dfunc1);
+
+% Función 1. b) f(z)
+func2 = (z^2 + 2i*z) / (z - 1i);
+
+% Punto z0
+z0 = 4 + 2i;
+
+% Derivada de f'(z)
+df = diff(func2, z);
+disp('La derivada de f(z) es');
+disp(df);
+
+% Derivada en el punto z0
+df_value = subs(df, z, z0);
+
+% Resultado
+disp(['La derivada de f(z) evaluada en z0 = ', num2str(z0), ' es:']);
+disp(df_value);
+
+% Función 1. c) f(z)
+f = sin(z^2 + 3i*z);
+
+% Punto z0
+z0 = 1i*pi;
+
+% Derivada de f(z)
+df = diff(f, z);
+disp('La derivada de f(z) es');
+disp(df);
+
+% Derivada en el punto z0
+df_value = subs(df, z, z0);
+
+% Resultado
+disp(['La derivada de f(z) evaluada en z0 = ', num2str(z0), ' es:']);
+disp(df_value);
+
+% ####################################################################
+
+syms x y;
+z1 = x + y*1i;
+% Función 2. a) f(z)
+f = z^3 - 2*z^2 + 6i*z;
+
+% Derivada de f(z)
+df = diff(f, z);
+
+% Mostrar derivada en z 
+disp('La derivada de f(z) es:');
+disp(df);
+
+df_sustituida = subs(df, z, z1);
+disp('La derivada de f(z) con x + yi:');
+disp(expand(df_sustituida));
+
+% Función 2. b) f(z)
+f = 5 / z^2;
+
+% Derivada de f(z)
+df = diff(f, z);
+
+% Mostrar la derivada
+disp('La derivada de f(z) es:');
+disp(df);
+
+df_sustituida = subs(df, z, z1);
+disp('La derivada de f(z) con x + yi:');
+disp(expand(df_sustituida));
+
+% Función 2. c) f(z)
+f = (3*z - 4i) / (z + 1i);
+
+% Derivada de f(z)
+df = diff(f, z);
+
+% Mostrar la derivada
+disp('La derivada de f(z) es:');
+disp(df);
+
+df_sustituida = subs(df, z, z1);
+disp('La derivada de f(z) con x + yi:');
+disp(expand(df_sustituida));
+
+% ####################################################################
+syms x y;
+z1 = x + y*1i;
+syms z; % Variable simbólica
+
+% Función 3. a) f(z)
+f = abs(z);
+
+% Integral indefinida de la función
+integral_f = int(f, z);
+
+% Integral indefinida
+disp('La integral indefinida de |z| dz es:');
+disp(integral_f);
+
+int_sustituida = subs(integral_f, z, z1);
+disp('La integral de f(z) con x + yi:');
+disp(expand(int_sustituida));
+
+% Función 3. b) f(z)
+f = z^3;
+
+% Integral indefinida de la función
+integral_f = int(f, z);
+
+% Integral indefinida
+disp('La integral indefinida de z^3 dz es:');
+disp(integral_f);
+
+int_sustituida = subs(integral_f, z, z1);
+disp('La integral de f(z) con x + yi:');
+disp(expand(int_sustituida));
+
+% Función 3. c) f(z)
+f = 1/(z^2 + 9);
+
+% Integral indefinida de la función
+integral_f = int(f, z);
+
+% Integral indefinida
+disp('La integral indefinida de la f(z) es:');
+disp(integral_f);
+
+int_sustituida = subs(integral_f, z, z1);
+disp('La integral de f(z) con x + yi:');
+disp(expand(int_sustituida));
+
+% Función 3. d) f(z)
+f = z/((z-1)*(z+2*1i));
+
+% Integral indefinida de la función
+integral_f = int(f, z);
+
+% Integral indefinida
+disp('La integral indefinida de la f(z) es:');
+disp(integral_f);
+
+int_sustituida = subs(integral_f, z, z1);
+disp('La integral de f(z) con x + yi:');
+disp(expand(int_sustituida));
+
+% ####################################################################
+
+% Límites de integración
+t = linspace(0, 2*pi, 1000); % 1000 puntos entre 0 y 2*pi
+
+% Parametrización de la curva
+z = exp(1i*t);
+
+% Evaluar la integral
+integral_value = trapz(t, 1./z);
 
 % Mostrar el resultado
-disp(['Valor de la serie de McLaurin para x = ', num2str(valor_x), ': ', num2str(resultado)]);
-
-
-
-syms x; % Definimos x como una variable simbólica
-
-% Definimos la función f(x)
-f = (exp(x) + exp(-x)) / 2;
-
-% Definimos el punto alrededor del cual queremos desarrollar el polinomio de Taylor (en este caso, es x0 = 0)
-x0 = 0;
-
-% Orden del desarrollo de Taylor
-n = 4; % Puedes ajustar este valor según el grado del polinomio deseado
-
-% Calculamos la expansión de Taylor de f(x) alrededor de x0 hasta el orden n
-taylor_expansion = taylor(f, x, 'Order', n);
-
-% Mostramos la expansión de Taylor (también es la expansión de McLaurin en este caso)
-disp(['La expansión de McLaurin de f(x) alrededor de x0 = ', num2str(x0), ' hasta el orden ', num2str(n), ' es:']);
-disp(taylor_expansion);
+disp(['El valor de la integral es: ', num2str(integral_value)]);
