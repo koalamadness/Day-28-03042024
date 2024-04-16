@@ -33,7 +33,7 @@ public class RandomScanner {
       case 3: //  String 
         System.out.println("Enter something: ");
         scanner.nextLine();
-        answer = "String";
+        answer = "String"; 
         break;
         }
       }catch(Exception e){
