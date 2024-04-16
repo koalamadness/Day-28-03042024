@@ -1,104 +1,84 @@
-syms z; % Se define a z como una variable simbólica
-% Función f(z)
-func1 = z^2 + 5i*z + 3 - 1i;
+syms x;  % Variable simbólica x
 
-% Punto z0
-z0 = 6 - 1i;
+% Función 1. a) f(x)
+f = 1/(1+x^2);
 
-% Derivada de f'(z)
-dfunc1 = diff(func1, z);
+% Punto de expansión
+x0 = 1;
 
-% Derivada en el punto z0
-valor_dfunc1 = subs(dfunc1, z, z0);
+% Serie de Taylor para f(x) alrededor de x=x0
+n_terms = 5;  % Número de términos en la serie
+taylor_series = taylor(f, x, x0, 'Order', n_terms);
 
-% Mostramos el resultado
-disp(['La derivada f''(z) evaluada en z0 = ', num2str(z0), ' es:']);
-disp(valor_dfunc1);
+% Mostrar la serie resultante
+disp('La serie de Taylor para f(x) alrededor de x=1 es:');
+disp(taylor_series);
 
+% Función 1. b) f(x)
+f = cos(x) + sin(x);
 
-func2 = (z^2 + 2i*z) / (z - 1i);
+% Punto de expansión
+x0 = 1;
 
-% Definimos el punto z0
-z0 = 4 + 2i;
+% Serie de Taylor para f(x) alrededor de x=x0
+n_terms = 5;  % Número de términos en la serie
+taylor_series = taylor(f, x, x0, 'Order', n_terms);
 
-% Calculamos la derivada de f(z)
-df = diff(func2, z);
+% Mostrar la serie resultante
+disp('La serie de Taylor para f(x) alrededor de x=1 es:');
+disp(taylor_series);
 
-% Evaluamos la derivada en el punto z0
-df_value = subs(df, z, z0);
+% Función 1. c) f(x)
+f = exp(2*x);
 
-% Mostramos el resultado
-disp(['La derivada de f(z) evaluada en z0 = ', num2str(z0), ' es:']);
-disp(df_value);
+% Punto de expansión
+x0 = 1;
 
+% Serie de Taylor para f(x) alrededor de x=x0
+n_terms = 5;  % Número de términos en la serie
+taylor_series = taylor(f, x, x0, 'Order', n_terms);
 
-% Definimos la función f(z)
-f = sin(z^2 + 3i*z);
+% Mostrar la serie resultante
+disp('La serie de Taylor para f(x) alrededor de x=1 es:');
+disp(taylor_series);
 
-% Definimos el punto z0
-z0 = 1i*pi;
+% Función 1. d) f(x)
+f = exp(1i*x);
 
-% Calculamos la derivada de f(z)
-df = diff(f, z);
+% Punto de expansión
+x0 = 1;
 
-% Evaluamos la derivada en el punto z0
-df_value = subs(df, z, z0);
+% Serie de Taylor para f(x) alrededor de x=x0
+n_terms = 5;  % Número de términos en la serie
+taylor_series = taylor(f, x, x0, 'Order', n_terms);
 
-% Mostramos el resultado
-disp(['La derivada de f(z) evaluada en z0 = ', num2str(z0), ' es:']);
-disp(df_value);
+% Mostrar la serie resultante
+disp('La serie de Taylor para f(x) alrededor de x=1 es:');
+disp(taylor_series);
 
+% ####################################################################
 
+syms x;  % Variable simbólica x
 
-% Definimos la función f(z)
-f = z^3 - 2*z^2 + 6i*z;
+% Función 2. a) f(x)
+f = (exp(x) + exp(-x))/2;
 
-% Calculamos la derivada de f(z)
-df = diff(f, z);
+% Serie de Maclaurin para f(x)
+n_terms = 10;  % Número de términos en la serie
+maclaurin_series = taylor(f, 'Order', n_terms);
 
-% Mostramos la derivada
-disp('La derivada de f(z) es:');
-disp(df);
+% Serie resultante
+disp('La serie de Maclaurin para f(x) es:');
+disp(maclaurin_series);
 
-% Definimos la función f(z)
-f = 5 / z^2;
+% Función 2. b) g(x)
+f = (exp(x) - exp(-x))/2;
 
-% Calculamos la derivada de f(z)
-df = diff(f, z);
+% Serie de Maclaurin para g(x)
+n_terms = 10;  % Número de términos en la serie
+maclaurin_series = taylor(f, 'Order', n_terms);
 
-% Mostramos la derivada
-disp('La derivada de f(z) es:');
-disp(df);
-
-% Definimos la función f(z)
-f = (3*z - 4i) / (z + 1i);
-
-% Calculamos la derivada de f(z)
-df = diff(f, z);
-
-% Mostramos la derivada
-disp('La derivada de f(z) es:');
-disp(df);
-
-syms z; % Definimos z como una variable simbólica
-
-% Definimos la función a integrar
-f = abs(z);
-
-% Calculamos la integral indefinida de la función
-integral_f = int(f, z);
-
-% Mostramos la integral indefinida
-disp('La integral indefinida de |z| dz es:');
-disp(integral_f);
-
-
-% Definimos la función a integrar
-f = z^3;
-
-% Calculamos la integral indefinida de la función
-integral_f = int(f, z);
-
-% Mostramos la integral indefinida
-disp('La integral indefinida de z^3 dz es:');
-disp(integral_f);
+% Serie resultante
+disp('La serie de Maclaurin para g(x) es:');
+disp(maclaurin_series);
+% ####################################################################
