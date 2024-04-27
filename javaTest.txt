@@ -41,3 +41,16 @@ Which keyword is used to return a value inside a method?
 
 Which statement is used to stop a loop?
 
+Chetos
+
+Con Donas
+
+
+
+How do you start writing an if statement in Java?
+
+How do you start writing a while loop in Java?
+
+Which keyword is used to return a value inside a method?
+
+Which statement is used to stop a loop?
