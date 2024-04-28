@@ -1,0 +1,86 @@
+syms x; 
+
+% Función 3 a)  f(x)
+f = piecewise(-pi/2 <= x < pi/2, x, pi/2 <= x <= 3*pi/2, pi - x);
+
+% Coeficientes de la serie de Fourier
+a0 = (1/pi) * int(f, x, -pi/2, pi/2);
+an = (1/pi) * int(f * cos(n*x), x, -pi/2, pi/2);
+bn = (1/pi) * int(f * sin(n*x), x, -pi/2, pi/2);
+
+% Número de términos 
+N = 10; 
+
+% Calcular 
+syms y; % Variable para la serie de Fourier
+fourier_series = a0;
+for n = 1:N
+    fourier_series = fourier_series + an * cos(n*y) + bn * sin(n*y);
+end
+
+% Graficar
+fplot(f, [-pi/2, 3*pi/2]); hold on;
+fplot(fourier_series, [-pi/2, 3*pi/2]);
+legend('Función original 3A', 'Serie de Fourier 3A');
+title('Función original y su serie de Fourier 3A ');
+xlabel('x');
+ylabel('f(x)');
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+syms x; 
+
+% Función 3 b) f(x)
+f = piecewise(-pi <= x < 0, x + pi, 0 <= x <= pi, x - pi);
+
+% Coeficientes de la serie de Fourier
+a0 = (1/(2*pi)) * int(f, x, -pi, pi);
+an = (1/pi) * int(f * cos(n*x), x, -pi, pi);
+bn = (1/pi) * int(f * sin(n*x), x, -pi, pi);
+
+% Número de términos 
+N = 10; 
+
+% Calcular serie de Fourier
+syms y; 
+fourier_series = a0;
+for n = 1:N
+    fourier_series = fourier_series + an * cos(n*y) + bn * sin(n*y);
+end
+
+% Graficar 
+fplot(f, [-pi, pi]); hold on;
+fplot(fourier_series, [-pi, pi]);
+legend('Función original 3B', 'Serie de Fourier 3B');
+title('Función original y su serie de Fourier 3B');
+xlabel('x');
+ylabel('f(x)');
+
+
+syms x; 
+
+% Función 3 c) f(x)
+f = piecewise(-pi <= x <= 0, -1, 0 < x < pi/2, 1, pi/2 <= x <= pi, -1);
+
+% Coeficientes de la serie de Fourier
+a0 = (1/pi) * int(f, x, -pi, pi);
+an = (1/pi) * int(f * cos(n*x), x, -pi, pi);
+bn = (1/pi) * int(f * sin(n*x), x, -pi, pi);
+
+% Número de términos en la serie de Fourier
+N = 10; 
+
+% Calcular serie de Fourier
+syms y; 
+fourier_series = a0;
+for n = 1:N
+    fourier_series = fourier_series + an * cos(n*y) + bn * sin(n*y);
+end
+
+% Graficar 
+fplot(f, [-pi, pi]); hold on;
+fplot(fourier_series, [-pi, pi]);
+legend('Función original 3C', 'Serie de Fourier 3C');
+title('Función original y su serie de Fourier 3C');
+xlabel('x');
+ylabel('f(x)');
