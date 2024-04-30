@@ -1,0 +1,58 @@
+
+disp('Secuencia x(n):');
+disp(x_n);
+
+syms z n;
+
+% Transformada Z
+X_z = z/(z + 6);
+
+% Inversa de la transformada Z
+x_n = iztrans(X_z);
+
+disp(' x(n) II. 1):');
+disp(x_n);
+
+syms z n;
+
+% Transformada Z
+X_z = z/(z^2 - 2*z + 2);
+
+% Inversa de la transformada Z
+x_n = iztrans(X_z);
+
+disp(' x(n) II. 2):');
+disp(x_n);
+
+syms z n;
+
+% Transformada Z
+X_z = (7*z^4 + 30*z^3 + 44*z^2 + 40*z + 15) / (10*z^4);
+
+% Inversa de la transformada Z
+x_n = iztrans(X_z);
+
+disp(' x(n) II. 3):');
+disp(x_n);
+
+syms z n;
+
+% Transformada Z
+X_z = 6*z/(6*z-1);
+
+% Inversa de la transformada Z
+x_n = iztrans(X_z);
+
+disp(' x(n) II. 4):');
+disp(x_n);
+
+syms z n;
+
+% Transformada Z
+X_z = (z^2 - 2*z + 2) / (z^2 - (7/12)*z + (1/12));
+
+% Inversa de la transformada Z
+x_n = iztrans(X_z);
+
+disp(' x(n) II. 5):');
+disp(x_n);
