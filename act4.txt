@@ -1,0 +1,225 @@
+% Paul Hiram García Luquín 22028696
+% Actividad 4: Transformada de Fourier
+
+% Función 1. a) f(x)
+x = linspace(0, 10, 1000); 
+f = zeros(size(x));
+f(x >= 3 & x <= 7) = 6; 
+
+% Transformada de Fourier
+F = fft(f);
+
+% Frecuencia en cada punto en la transformada
+N = length(f);
+Fs = 1 / (x(2) - x(1)); 
+frequencies = Fs * (0:(N/2)) / N; 
+
+% Grafica
+figure;
+subplot(2, 1, 1);
+plot(x, f);
+title('Función 1. a) f(x)');
+xlabel('x');
+ylabel('f(x)');
+
+subplot(2, 1, 2);
+plot(frequencies, abs(F(1:N/2+1)));
+title('Transformada de Fourier de 1. a) f(x)');
+xlabel('Frecuencia (Hz)');
+ylabel('|F(f)|');
+
+% Función 1. b) f(x) y el parámetro a
+a = 2; 
+x = linspace(-10, 10, 1000); 
+f = exp(-a * abs(x)); 
+
+% Transformada de Fourier
+F = fft(f);
+
+N = length(f); 
+Fs = 1 / (x(2) - x(1));
+frequencies = Fs * (0:(N/2)) / N; 
+
+% Grafica
+figure;
+subplot(2, 1, 1);
+plot(x, f);
+title('Función 1. b) f(x)');
+xlabel('x');
+ylabel('f(x)');
+
+subplot(2, 1, 2);
+plot(frequencies, abs(F(1:N/2+1)));
+title('Transformada de Fourier de 1. b) f(x)');
+xlabel('Frecuencia (Hz)');
+ylabel('|F(f)|');
+
+% Función 1. c) f(t)
+t = linspace(-10, 10, 1000); 
+f = zeros(size(t));
+f(t > 0) = exp(-2 * t(t > 0)); 
+
+% Transformada de Fourier
+F = fft(f);
+
+N = length(f); 
+Fs = 1 / (t(2) - t(1)); 
+frequencies = Fs * (0:(N/2)) / N; 
+
+% Graficar
+figure;
+subplot(2, 1, 1);
+plot(t, f);
+title('Función 1. c) f(t)');
+xlabel('Tiempo');
+ylabel('f(t)');
+
+subplot(2, 1, 2);
+plot(frequencies, abs(F(1:N/2+1)));
+title('Transformada de Fourier de 1. c)  f(t)');
+xlabel('Frecuencia (Hz)');
+ylabel('|F(f)|');
+
+% Función 1. d) f(t)
+t = linspace(0, 10, 1000); 
+f = 5 * exp(-3 * (t - 5).^2); 
+
+% Transformada de Fourier
+F = fft(f);
+
+% frecuencia EN cada punto en la transformada
+N = length(f); 
+Fs = 1 / (t(2) - t(1)); 
+frequencies = Fs * (0:(N/2)) / N; 
+
+% Graficado
+figure;
+subplot(2, 1, 1);
+plot(t, f);
+title('Función 1. d) f(t)');
+xlabel('Tiempo');
+ylabel('f(t)');
+
+subplot(2, 1, 2);
+plot(frequencies, abs(F(1:N/2+1)));
+title('Transformada de Fourier de 1. d) f(t)');
+xlabel('Frecuencia (Hz)');
+ylabel('|F(f)|');
+
+% Función 1. e) f(t)
+t = linspace(0, 10, 1000); 
+f = 3 * (t - 2) .* exp(-3 * t); 
+
+% Transformada de Fourier
+F = fft(f);
+
+N = length(f); 
+Fs = 1 / (t(2) - t(1)); 
+frequencies = Fs * (0:(N/2)) / N; 
+
+% Graficar 
+figure;
+subplot(2, 1, 1);
+plot(t, f);
+title('Función 1. e) f(t)');
+xlabel('Tiempo');
+ylabel('f(t)');
+
+subplot(2, 1, 2);
+plot(frequencies, abs(F(1:N/2+1)));
+title('Transformada de Fourier de 1. e) f(t)');
+xlabel('Frecuencia (Hz)');
+ylabel('|F(f)|');
+
+% ###########################################################
+
+% Función 2 F(w)
+F_inv = @(w) 2 ./ (1 + w.^2);
+
+% Límites de frecuencia
+N = 1000; 
+w = linspace(-10, 10, N); 
+
+% Transformada inversa de Fourier 
+f_inv = ifft(F_inv(w), N);
+
+% Paso de tiempo dt
+dt = (2 * max(w)) / N;
+
+% Vector de tiempo
+t = 0:dt:(N-1)*dt;
+
+% Graficar 
+figure;
+plot(t, real(f_inv));
+xlabel('Tiempo');
+ylabel('F^-1(t)');
+title('Transformada inversa de Fourier de F^{-1}(w)');
+
+% Función 3 F(w)
+F_inv = @(w) 1 ./ ((4+w.^2) .* (9+w.^2));
+
+% Límites de frecuencia
+N = 1000; 
+w = linspace(-10, 10, N); 
+
+% Transformada inversa de Fourier 
+f_inv = ifft(F_inv(w), N);
+
+% Paso de tiempo dt
+dt = (2 * max(w)) / N;
+
+% Vector de tiempo
+t = 0:dt:(N-1)*dt;
+
+% Graficar 
+figure;
+plot(t, real(f_inv));
+xlabel('Tiempo');
+ylabel('F^-1(t)');
+title('Transformada inversa de Fourier de F^{-1}(w)');
+
+% Función 4 F(w)
+F_inv = @(w) cos(3 * w);
+
+% Límites de frecuencia
+N = 1000; 
+w = linspace(-10, 10, N); 
+
+% Transformada inversa de Fourier 
+f_inv = ifft(F_inv(w), N);
+
+% Paso de tiempo dt
+dt = (2 * max(w)) / N;
+
+% vector de tiempo
+t = 0:dt:(N-1)*dt;
+
+figure;
+plot(t, real(f_inv));
+xlabel('Tiempo');
+ylabel('F^-1(t)');
+title('Transformada inversa de Fourier de F^{-1}(w) = cos(3w)');
+
+% Función 5 F(w)
+F_inv = @(w) sin(3 * w);
+
+% Límites de frecuencia
+N = 1000; 
+w = linspace(-10, 10, N); % Vector de frecuencia
+
+% Transformada inversa de Fourier 
+f_inv = ifft(F_inv(w), N);
+
+% Paso de tiempo dt
+dt = (2 * max(w)) / N;
+
+% Vector de tiempo
+t = 0:dt:(N-1)*dt;
+
+% Graficar 
+figure;
+plot(t, real(f_inv));
+xlabel('Tiempo');
+ylabel('F^-1(t)');
+title('Transformada inversa de Fourier de F^{-1}(w) = sin(3w)');
