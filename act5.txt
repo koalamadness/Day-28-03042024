@@ -25,6 +25,11 @@ X_z = ztrans(x_n);
 disp('Transformada Z I. 2):');
 disp(X_z);
 
+ROC = abs(z) > 0;
+
+disp('Región de convergencia:');
+disp('|z| > 0');
+
 syms n z a n0;
 
 % Secuencia
@@ -33,8 +38,13 @@ x_n = symsum(a^n * z^(-n), n, 0, n0);
 % Transformada Z
 X_z = simplify(x_n);
 
-disp('Transformada Z:');
+disp('Transformada Z I. 3):');
 disp(X_z);
+
+ROC = abs(z) > abs(a);
+
+disp('Región de convergencia:');
+disp(['|z| > |a|, donde |a| = ', char(abs(a))]);
 
 syms n z;
 
@@ -47,8 +57,9 @@ X_z = ztrans(x_n);
 disp('Transformada Z I. 4):');
 disp(X_z);
 
-% Determinar la región de convergencia
-% (Depende del resultado de la transformada Z)
+ROC = abs(z) > 1;
+disp('Región de convergenciaI. 4): ');
+disp('|z| > 1');
 
 syms n k z;
 
@@ -61,6 +72,11 @@ X_z = ztrans(x_n);
 disp('Transformada Z I. 5):');
 disp(X_z);
 
+ROC = abs(z) > 3;
+
+disp('Región de convergencia  I. 5) :');
+disp('|z| > 3');
+
 syms n z;
 
 % Secuencia
@@ -69,14 +85,12 @@ x_n = dirac(n) + dirac(n - 4);
 % Transformada Z
 X_z = ztrans(x_n);
 
-
 disp('Transformada Z I. 6):');
 disp(X_z);
 
-% Determinar la región de convergencia
-% (Depende del resultado de la transformada Z)
-% Determinar la región de convergencia
-% (Depende del resultado de la transformada Z)
+disp('Región de convergencia I. 6):');
+disp('|z| != 0');
+
 % ##################################################
 disp('Secuencia x(n):');
 disp(x_n);
