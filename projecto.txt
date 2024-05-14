@@ -1,0 +1,45 @@
+% Cargar la imagen RGB
+imagen = imread('nombre_archivo.jpg');
+
+% Imagen a escala de grises
+imagen_gris = rgb2gray(imagen);
+
+% Creación de filtro espacial pasa-bajas (3x3) valor 1/9
+filtro_espacial = ones(3) / 9;
+
+% Convolución de imagen con el filtro espacial
+imagen_conv = conv2(double(imagen_gris), filtro_espacial, 'same');
+
+% Transformada de Fourier 2D de la imagen gris
+fft_imagen = fft2(imagen_gris);
+
+% Creación de filtro espacial pasa-bajas en el dominio de la frecuencia
+[m, n] = size(imagen_gris);
+radio = round(0.1 * min(m, n));
+filtro_frec = fspecial('disk', radio);
+
+% Aplicación de filtro en el dominio de la frecuencia
+img_filt_frec = fft_imagen .* filtro_frec;
+
+% Imagen filtrada en el dominio espacial
+img_filt = real(ifft2(img_filt_frec));
+
+% Gráficas de resultados
+figure;
+subplot(2,2,1), imshow(imagen), title('Imagen Original');
+subplot(2,2,2), imshow(uint8(imagen_conv)), title('Convolución Espacial');
+subplot(2,2,3), imshow(uint8(abs(ifft2(fft_imagen)))), title('Transformada Inversa de Fourier');
+subplot(2,2,4), imshow(uint8(img_filt)), title('Filtrado en Frecuencia');
+
+% Pproceso para cada canal de color (R, G, B)
+for i = 1:3
+    canal = imagen(:,:,i);
+    fft_canal = fft2(canal);
+    canal_filtrado_frecuencia = fft_canal .* filtro_frec;
+    canal_filtrado = real(ifft2(canal_filtrado_frecuencia));
+
+    % Gráficas de resultadospara cada canal de color
+    figure;
+    subplot(1,2,1), imshow(canal), title(sprintf('Canal %d Original', i));
+    subplot(1,2,2), imshow(uint8(canal_filtrado)), title(sprintf('Canal %d Filtrado en Frecuencia', i));
+end

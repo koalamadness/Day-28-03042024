@@ -1,0 +1,46 @@
+% Cargar la imagen RGB
+imagen = imread('10.jpg');
+
+% Convertir la imagen a escala de grises
+imagen_gris = rgb2gray(imagen);
+
+% Crear el filtro espacial pasa-bajas (3x3)
+filtro_espacial = ones(3) / 9;
+
+% Convolucionar la imagen con el filtro espacial
+imagen_convolucionada = conv2(double(imagen_gris), filtro_espacial, 'same');
+
+% Calcular las dimensiones de la imagen y el filtro de frecuencia
+[m, n] = size(imagen_gris);
+radio = round(0.1 * min(m, n));
+
+% Ajustar el tamaño del filtro de frecuencia para que coincida con el tamaño de la imagen
+filtro_frecuencia = fspecial('disk', radio);
+[m_filtro, n_filtro] = size(filtro_frecuencia);
+
+if m ~= m_filtro || n ~= n_filtro
+    % Recortar o redimensionar la imagen para que coincida con el tamaño del filtro de frecuencia
+    imagen_gris_resized = imresize(imagen_gris, [m_filtro, n_filtro]);
+else
+    imagen_gris_resized = imagen_gris;
+end
+
+% Calcular la transformada de Fourier 2D de la imagen después de ajustar su tamaño
+fft_imagen = fft2(imagen_gris_resized);
+
+% Aplicar el filtro en el dominio de la frecuencia
+imagen_filtrada_frecuencia = fft_imagen .* filtro_frecuencia;
+
+% Obtener la imagen filtrada en el dominio espacial
+imagen_filtrada = real(ifft2(imagen_filtrada_frecuencia));
+
+% Graficar resultados
+figure;
+subplot(2,2,1), imshow(imagen), title('Imagen Original');
+subplot(2,2,2), imshow(uint8(imagen_convolucionada)), title('Convolución Espacial');
+
+% Mostrar la imagen filtrada en el dominio de la frecuencia
+subplot(2,2,3), imshow(log(abs(fftshift(fft_imagen))+1), []), title('Frecuencia Log Magnitud');
+
+% Mostrar la imagen filtrada en el dominio espacial
+subplot(2,2,4), imshow(uint8(imagen_filtrada)), title('Filtrado en Frecuencia');
