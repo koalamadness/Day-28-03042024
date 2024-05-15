@@ -1,0 +1,60 @@
+
+% Cargar una imagen
+imagen = imread('2.jpg');
+
+% Convertir la imagen a escala de grises si es necesario
+if size(imagen, 3) == 3
+    imagen_gris = rgb2gray(imagen);
+else
+    imagen_gris = imagen;
+end
+
+% Transformada de Fourier 2D de la imagen
+transformada = fft2(im2double(imagen_gris));
+
+% Centrar la transformada
+transformada_centralizada = fftshift(transformada);
+
+% Dimensiones de la imagen
+[M, N] = size(imagen_gris);
+% Coordenadas del centro de la imagen
+centro_x = round(M/2);
+centro_y = round(N/2);
+
+% Radio del filtro pasa bajas 
+radio = 50;
+
+% Matriz con ceros del mismo tamaño que la imagen
+filtro_pasa_bajas = zeros(M, N);
+
+% Relleno de la región dentro del radio con unos
+for i = 1:M
+    for j = 1:N
+        if sqrt((i-centro_x)^2 + (j-centro_y)^2) <= radio
+            filtro_pasa_bajas(i, j) = 1;
+        end
+    end
+end
+
+% Aplicación del filtro pasa bajas multiplicando la transformada de Fourier por el filtro
+transformada_filtrada = transformada_centralizada .* filtro_pasa_bajas;
+
+% Inverción de la transformada de Fourier para obtener la imagen filtrada
+imagen_filtrada = ifft2(ifftshift(transformada_filtrada));
+
+% Mostrar la imagen original y la imagen filtrada
+figure;
+subplot(1,2,1);
+imshow(imagen_gris);
+title('Imagen original');
+subplot(1,2,2);
+imshow(abs(imagen_filtrada), []);
+title('Imagen filtrada');
+
+
+transformada_inversa_centralizada = fftshift(transformada_filtrada);
+
+% Visualizar la transformada de Fourier en el dominio de la frecuencia
+figure;
+imshow(transformada_filtrada);
+title('Transformada de Fourier en el dominio de la frecuencia (centrada)');

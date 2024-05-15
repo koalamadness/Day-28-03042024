@@ -1,57 +1,54 @@
-% Imagen RGB 
+% Cargar la imagen RGB
 imagen = imread('10.jpg');
 figure;
 imshow(imagen), title('Imagen Original');
 
-R = imagen(:,:,1); % Canal rojo
-G = imagen(:,:,2); % Canal verde
-B = imagen(:,:,3); % Canal azul
-
-% Imagen RGB en colores totales
 allBlack = zeros(size(imagen,1,2),class(imagen));
 justR = cat(3,R,allBlack,allBlack);
 justG = cat(3,allBlack,G,allBlack);
 justB = cat(3,allBlack,allBlack,B);
 
-% Imagen a escala de grises
+figure;
+imshow(justB), title('Imagen R');
+
+% Convertir la imagen a escala de grises
 imagen_gris = rgb2gray(imagen);
 figure;
 imshow(imagen_gris), title('Imagen Gris');
 
-% Creación de filtro espacial pasa-bajas (3x3) valor 1/9
-filtro_espacial = ones(3) / 9;
+% Crear el filtro espacial pasa-bajas (3x3)
+filtro_espacial = ones(3) /9;
 
-% Convolución de imagen con el filtro espacial
+% Convolucionar la imagen con el filtro espacial
 imagen_convolucionada = conv2(double(imagen_gris), filtro_espacial, 'same');
 figure;
 imshow(uint8(imagen_convolucionada)), title('Convolución Espacial');
 
-% Dimensiones de la imagen y el filtro de frecuencia
+% Calcular las dimensiones de la imagen y el filtro de frecuencia
 [m, n] = size(imagen_gris);
 radio = round(0.1 * min(m, n));
 
-% Tamaño del filtro de frecuencia para que coincida con el tamaño de la imagen
+% Ajustar el tamaño del filtro de frecuencia para que coincida con el tamaño de la imagen
 filtro_frecuencia = fspecial('disk', radio);
 [m_filtro, n_filtro] = size(filtro_frecuencia);
 
 if m ~= m_filtro || n ~= n_filtro
-    % Redimensionar la imagen para que coincida con el tamaño del filtro de frecuencia
+    % Recortar o redimensionar la imagen para que coincida con el tamaño del filtro de frecuencia
     imagen_gris_resized = imresize(imagen_gris, [m_filtro, n_filtro]);
 else
     imagen_gris_resized = imagen_gris;
 end
 
-% Transformada de Fourier 2D de la imagen después de ajustar su tamaño
+% Calcular la transformada de Fourier 2D de la imagen después de ajustar su tamaño
 fft_imagen = fft2(imagen_gris_resized);
 figure;
 imshow(uint8(fft_imagen)), title('FFT Imagen');
 
-% Filtro en el dominio de la frecuencia
+% Aplicar el filtro en el dominio de la frecuencia
 imagen_filtrada_frecuencia = fft_imagen .* filtro_frecuencia;
 figure;
 imshow(log(abs(fftshift(fft_imagen))+1), []), title('Frecuencia Log Magnitud');
 
-% Selección de colores RGB
 for i = 1:3
     if i == 1
         color_img = justR;
@@ -65,50 +62,29 @@ for i = 1:3
 
     imagen_gris = rgb2gray(color_img);
     filtro_espacial = ones(3) /9;
-    
+
     imagen_convolucionada = conv2(double(imagen_gris), filtro_espacial, 'same');
-  
+    figure;
+    imshow(uint8(imagen_convolucionada)), title('Convolución Espacial');
+
     [m, n] = size(imagen_gris);
     radio = round(0.1 * min(m, n));
-    
+
     filtro_frecuencia = fspecial('disk', radio);
     [m_filtro, n_filtro] = size(filtro_frecuencia);
-    
+
     if m ~= m_filtro || n ~= n_filtro
         imagen_gris_resized = imresize(imagen_gris, [m_filtro, n_filtro]);
     else
         imagen_gris_resized = imagen_gris;
     end
-    
-    fft_imagen = fft2(imagen_gris_resized);
-    
-    imagen_filtrada_frecuencia = fft_imagen .* filtro_frecuencia;
-% Gráficas RGB
-    if i == 1
-        figure;
-        imshow(color_img), title('Imagen Original Red');
-        figure;
-        imshow(uint8(imagen_convolucionada)), title('Convolución Espacial Red');
-        figure;
-        imshow(log(abs(fftshift(fft_imagen))+1), []), title('Frecuencia Log Magnitud Red');
-    elseif i == 2
-        figure;
-        imshow(color_img), title('Imagen Original Green');
-        figure;
-        imshow(uint8(imagen_convolucionada)), title('Convolución Espacial Green');
-        figure;
-        imshow(log(abs(fftshift(fft_imagen))+1), []), title('Frecuencia Log Magnitud Green');
-    elseif i == 3
-        figure;
-        imshow(color_img), title('Imagen Original Blue');
-        figure;
-        imshow(uint8(imagen_convolucionada)), title('Convolución Espacial Blue');
-        figure;
-        imshow(log(abs(fftshift(fft_imagen))+1), []), title('Frecuencia Log Magnitud Blue');
-    else
-        error('Valor de "i" no válido. Debe ser 1, 2 o 3.');
-    end
 
+    fft_imagen = fft2(imagen_gris_resized);
+
+    imagen_filtrada_frecuencia = fft_imagen .* filtro_frecuencia;
+    figure;
+    imshow(log(abs(fftshift(fft_imagen))+1), []), title('Frecuencia Log Magnitud');
 end
+
 
 
