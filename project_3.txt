@@ -1,0 +1,161 @@
+% Imagen RGB 
+imagen = imread('10.jpg');
+figure;
+imshow(imagen), title('Imagen Original');
+
+R = imagen(:,:,1); % Canal rojo
+G = imagen(:,:,2); % Canal verde
+B = imagen(:,:,3); % Canal azul
+
+% Imagen RGB en colores totales
+allBlack = zeros(size(imagen,1,2),class(imagen));
+justR = cat(3,R,allBlack,allBlack);
+justG = cat(3,allBlack,G,allBlack);
+justB = cat(3,allBlack,allBlack,B);
+
+% Imagen a escala de grises
+imagen_gris = rgb2gray(imagen);
+figure;
+imshow(imagen_gris), title('Imagen Gris');
+
+% Creación de filtro espacial pasa-bajas (3x3) valor 1/9
+filtro_espacial = ones(3) / 9;
+
+% Convolución de imagen con el filtro espacial
+imagen_convolucionada = conv2(double(imagen_gris), filtro_espacial, 'same');
+figure;
+imshow(uint8(imagen_convolucionada)), title('Convolución Espacial');
+
+% Transformada de Fourier 2D de la imagen
+transformada = fft2(im2double(imagen_gris));
+
+% Centrar la transformada
+transformada_centralizada = fftshift(transformada);
+
+% Dimensiones de la imagen
+[M, N] = size(imagen_gris);
+% Coordenadas del centro de la imagen
+centro_x = round(M/2);
+centro_y = round(N/2);
+
+% Radio del filtro pasa bajas 
+radio = 50;
+
+% Matriz con ceros del mismo tamaño que la imagen
+filtro_pasa_bajas = zeros(M, N);
+
+% Relleno de la región dentro del radio con unos
+for i = 1:M
+    for j = 1:N
+        if sqrt((i-centro_x)^2 + (j-centro_y)^2) <= radio
+            filtro_pasa_bajas(i, j) = 1;
+        end
+    end
+end
+
+% Aplicación del filtro pasa bajas multiplicando la transformada de Fourier por el filtro
+transformada_filtrada = transformada_centralizada .* filtro_pasa_bajas;
+
+% Inverción de la transformada de Fourier para obtener la imagen filtrada
+imagen_filtrada = ifft2(ifftshift(transformada_filtrada));
+
+% Mostrar la imagen original y la imagen filtrada
+figure;
+imshow(abs(imagen_filtrada), []);
+title('Filtrada FFT en dominio espacial');
+
+% Visualizar la transformada de Fourier en el dominio de la frecuencia
+figure;
+imshow(transformada_filtrada);
+title('Filtrada FFT en el dominio de la frecuencia');
+
+% Selección de colores RGB
+for i = 1:3
+    if i == 1
+        color_img = justR;
+    elseif i == 2
+        color_img = justG;
+    elseif i == 3
+        color_img = justB;
+    else
+        error('Valor de "i" no válido. Debe ser 1, 2 o 3.');
+    end
+
+    imagen_gris = rgb2gray(color_img);
+    filtro_espacial = ones(3) /9;
+
+    imagen_convolucionada = conv2(double(imagen_gris), filtro_espacial, 'same');
+
+
+    transformada = fft2(im2double(imagen_gris));
+    
+
+    transformada_centralizada = fftshift(transformada);
+    
+
+    [M, N] = size(imagen_gris);
+  
+    centro_x = round(M/2);
+    centro_y = round(N/2);
+    
+   
+    radio = 50;
+    
+
+    filtro_pasa_bajas = zeros(M, N);
+    
+ 
+    for i = 1:M
+        for j = 1:N
+            if sqrt((i-centro_x)^2 + (j-centro_y)^2) <= radio
+                filtro_pasa_bajas(i, j) = 1;
+            end
+        end
+    end
+  
+    transformada_filtrada = transformada_centralizada .* filtro_pasa_bajas;
+    
+    imagen_filtrada = ifft2(ifftshift(transformada_filtrada));
+    
+% Gráficas RGB
+    if i == 1
+        figure;
+        imshow(color_img), title('Imagen Original Red');
+        figure;
+        imshow(uint8(imagen_convolucionada)), title('Convolución Espacial Red');
+        figure;
+        imshow(abs(imagen_filtrada), []);
+        title('Filtrada FFT en dominio espacial Red');
+        figure;
+        imshow(transformada_filtrada);
+        title('Filtrada FFT en el dominio de la frecuencia Red');
+
+        
+    elseif i == 2
+        figure;
+        imshow(color_img), title('Imagen Original Green');
+        figure;
+        imshow(uint8(imagen_convolucionada)), title('Convolución Espacial Green');
+        figure;
+        imshow(abs(imagen_filtrada), []);
+        title('Filtrada FFT en dominio espacial Green');
+        figure;
+        imshow(transformada_filtrada);
+        title('Filtrada FFT en el dominio de la frecuencia Green');
+        
+    elseif i == 3
+        figure;
+        imshow(color_img), title('Imagen Original Blue');
+        figure;
+        imshow(uint8(imagen_convolucionada)), title('Convolución Espacial Blue');
+        figure;
+        imshow(abs(imagen_filtrada), []);
+        title('Filtrada FFT en dominio espacial Blue');
+        figure;
+        imshow(transformada_filtrada);
+        title('Filtrada FFT en el dominio de la frecuencia Blue');
+    else
+        error('Valor de "i" no válido. Debe ser 1, 2 o 3.');
+    end
+
+end
